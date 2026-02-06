@@ -6,5 +6,18 @@
 <body>
   <h1>Vanakkam nanba 😎</h1>
   <p>En first website GitHub Pages la live aaguthu 🔥</p>
+  <input type="text" id="i1">
+  <button onclick="kamalesh()">CLICK ME</button>
 </body>
+<script>
+  function kamalesh(){
+    var name = i1.value;
+    var b = name[name.length - 1]
+    if(b == "a" || b == "i"){
+      alert("HI" + " " + name + " " + "NANBI" + " " + "NALLA IRUKINGALA")
+    }else if(!(b == "a" || b == "i")){
+    alert("HI" + " " + name + " " + "NANBA" + " " + "NALLA IRUKINGALA")
+    }
+  }
+</script>
 </html>
