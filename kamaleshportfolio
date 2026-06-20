@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Kamalesh R | Creative Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800;900&display=swap" rel="stylesheet"/>
+    <style>
+        /* ===== RESET ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #0a0a1a;
+            color: #fff;
+            overflow-x: hidden;
+            cursor: none;
+        }
+
+        /* ===== CUSTOM CURSOR ===== */
+        .cursor-dot {
+            width: 10px;
+            height: 10px;
+            background: #00f5ff;
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            box-shadow: 0 0 30px #00f5ff;
+            transition: all 0.1s ease;
+        }
+
+        .cursor-ring {
+            width: 50px;
+            height: 50px;
+            border: 2px solid rgba(0, 245, 255, 0.4);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9998;
+            transform: translate(-50%, -50%);
+            transition: all 0.2s ease-out;
+        }
+
+        /* ===== SCROLLBAR ===== */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0a0a1a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(45deg, #00f5ff, #ff00e4);
+            border-radius: 10px;
+        }
+
+        /* ===== PARTICLES BG ===== */
+        #particles-js {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* ===== HOME SECTION WITH IMAGE ===== */
+        #home {
+            position: relative;
+            z-index: 1;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 50px 10%;
+            gap: 60px;
+            flex-wrap: wrap;
+        }
+
+        /* ===== LEFT CONTENT ===== */
+        .home-content {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .home-content .badge {
+            display: inline-block;
+            background: rgba(0, 245, 255, 0.15);
+            padding: 8px 25px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            color: #00f5ff;
+            border: 1px solid rgba(0, 245, 255, 0.2);
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+        }
+
+        .home-content h1 {
+            font-size: 4.5rem;
+            font-weight: 900;
+            line-height: 1.1;
+        }
+
+        .home-content h1 span {
+            background: linear-gradient(135deg, #00f5ff, #ff00e4, #00f5ff);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradientMove 4s ease infinite;
+        }
+
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .typing-text {
+            font-size: 1.6rem;
+            font-weight: 400;
+            color: #ccc;
+            margin: 15px 0 25px;
+        }
+
+        .typing-text span {
+            color: #ff00e4;
+            font-weight: 600;
+        }
+
+        .home-content p {
+            color: #999;
+            max-width: 500px;
+            line-height: 1.8;
+            margin-bottom: 30px;
+            font-size: 1.05rem;
+        }
+
+        .home-buttons {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: 0.4s;
+            font-size: 1rem;
+            letter-spacing: 1px;
+            border: 2px solid #00f5ff;
+            color: #fff;
+            background: transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, #00f5ff, #ff00e4);
+            transition: 0.5s;
+            z-index: -1;
+        }
+
+        .btn:hover::before {
+            left: 0;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 40px rgba(0, 245, 255, 0.3);
+            border-color: transparent;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #00f5ff, #ff00e4);
+            border: none;
+        }
+
+        .btn-primary:hover {
+            box-shadow: 0 0 50px rgba(0, 245, 255, 0.5);
+            transform: scale(1.05);
+        }
+
+        /* ===== RIGHT: IMAGE WITH BORDER ROTATION ONLY ===== */
+        .home-image {
+            flex: 1;
+            min-width: 300px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        /* Outer container - rotates (border only) */
+        .image-wrapper {
+            position: relative;
+            width: 400px;
+            height: 400px;
+            border-radius: 50%;
+            padding: 8px;
+            background: conic-gradient(from 0deg, #00f5ff, #ff00e4, #00f5ff, #ff00e4, #00f5ff);
+            animation: spinBorder 6s linear infinite;
+            box-shadow: 0 0 80px rgba(0, 245, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s ease;
+        }
+
+        @keyframes spinBorder {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Image - PERFECTLY STILL, NO ROTATION AT ALL */
+        .image-wrapper img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            display: block;
+            transform: rotate(0deg) !important;
+            animation: none !important;
+            transition: all 0.4s ease;
+            filter: brightness(1.05) contrast(1.05);
+        }
+
+        /* Inner container to counter-rotate and keep image still */
+        .image-inner {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            overflow: hidden;
+            animation: counterRotate 6s linear infinite;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        @keyframes counterRotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(-360deg); }
+        }
+
+        /* Glow effect on hover - Image won't rotate */
+        .image-wrapper:hover img {
+            filter: brightness(1.15) contrast(1.1) drop-shadow(0 0 50px rgba(0, 245, 255, 0.6));
+            transform: scale(1.05) !important;
+        }
+
+        /* 3D Tilt on wrapper - Image stays straight */
+        .image-wrapper:hover {
+            box-shadow: 0 0 100px rgba(0, 245, 255, 0.4);
+        }
+
+        /* Floating icons around image */
+        .float-icons {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
+
+        .float-icons i {
+            position: absolute;
+            font-size: 2rem;
+            color: #fff;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(10px);
+            padding: 15px;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            pointer-events: auto;
+            transition: 0.4s;
+            box-shadow: 0 0 30px rgba(0, 245, 255, 0.1);
+        }
+
+        .float-icons i:hover {
+            transform: scale(1.3) !important;
+            background: rgba(0, 245, 255, 0.2);
+            border-color: #00f5ff;
+            box-shadow: 0 0 50px rgba(0, 245, 255, 0.3);
+        }
+
+        .float-icons i:nth-child(1) { top: 5%; left: 50%; transform: translateX(-50%); }
+        .float-icons i:nth-child(2) { top: 20%; right: 0; }
+        .float-icons i:nth-child(3) { bottom: 20%; right: 0; }
+        .float-icons i:nth-child(4) { bottom: 5%; left: 50%; transform: translateX(-50%); }
+        .float-icons i:nth-child(5) { bottom: 20%; left: 0; }
+        .float-icons i:nth-child(6) { top: 20%; left: 0; }
+
+        /* ===== SECTIONS COMMON ===== */
+        section {
+            position: relative;
+            z-index: 1;
+            padding: 100px 10%;
+            min-height: 100vh;
+        }
+
+        .section-title {
+            font-size: 3.2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #00f5ff, #ff00e4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 50px;
+            letter-spacing: 2px;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, #00f5ff, #ff00e4);
+            border-radius: 10px;
+        }
+
+        /* ===== ABOUT ===== */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .about-text p {
+            font-size: 1.1rem;
+            line-height: 2;
+            color: #ccc;
+            margin-bottom: 20px;
+        }
+
+        .about-text .highlight {
+            color: #00f5ff;
+            font-weight: 600;
+        }
+
+        .about-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        /* 3D Tilt Card - About Stats */
+        .stat-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            padding: 30px 20px;
+            border-radius: 25px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.3s ease;
+            transform-style: preserve-3d;
+            perspective: 800px;
+            cursor: pointer;
+        }
+
+        .stat-card:hover {
+            border-color: #00f5ff;
+            box-shadow: 0 15px 50px rgba(0, 245, 255, 0.15);
+        }
+
+        .stat-card h3 {
+            font-size: 2.8rem;
+            background: linear-gradient(135deg, #00f5ff, #ff00e4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .stat-card p {
+            color: #aaa;
+            font-size: 0.95rem;
+            margin-top: 5px;
+        }
+
+        /* ===== SKILLS ===== */
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+            gap: 30px;
+        }
+
+        /* 3D Tilt Card - Skills */
+        .skill-item {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            padding: 30px 20px;
+            border-radius: 25px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.3s ease;
+            transform-style: preserve-3d;
+            perspective: 800px;
+            cursor: pointer;
+        }
+
+        .skill-item:hover {
+            border-color: #ff00e4;
+            box-shadow: 0 15px 50px rgba(255, 0, 228, 0.15);
+        }
+
+        .skill-item i {
+            font-size: 3.5rem;
+            background: linear-gradient(135deg, #00f5ff, #ff00e4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .skill-item h4 {
+            font-size: 1rem;
+            margin-top: 10px;
+        }
+
+        .skill-bar {
+            width: 100%;
+            height: 6px;
+            background: #1a1a2e;
+            border-radius: 10px;
+            margin-top: 12px;
+            overflow: hidden;
+        }
+
+        .skill-bar .fill {
+            height: 100%;
+            background: linear-gradient(90deg, #00f5ff, #ff00e4);
+            border-radius: 10px;
+            width: 0%;
+            transition: 1.5s ease;
+        }
+
+        /* ===== PROJECTS ===== */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        /* 3D Tilt Card - Projects */
+        .project-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            border-radius: 25px;
+            padding: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            transform-style: preserve-3d;
+            perspective: 800px;
+            cursor: pointer;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(transparent, transparent, transparent, #00f5ff);
+            animation: rotate 6s linear infinite;
+            opacity: 0.05;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .project-card:hover {
+            border-color: #00f5ff;
+            box-shadow: 0 20px 60px rgba(0, 245, 255, 0.15);
+        }
+
+        .project-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+        }
+
+        .project-card p {
+            color: #bbb;
+            line-height: 1.6;
+        }
+
+        .project-card .tag {
+            display: inline-block;
+            background: rgba(0, 245, 255, 0.12);
+            padding: 5px 18px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            color: #00f5ff;
+            margin-top: 15px;
+            border: 1px solid rgba(0, 245, 255, 0.1);
+        }
+
+        /* ===== CONTACT ===== */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* 3D Tilt Card - Contact */
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            padding: 25px 30px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: #fff;
+            transform-style: preserve-3d;
+            perspective: 800px;
+            cursor: pointer;
+        }
+
+        .contact-item:hover {
+            border-color: #00f5ff;
+            box-shadow: 0 0 40px rgba(0, 245, 255, 0.1);
+        }
+
+        .contact-item i {
+            font-size: 2rem;
+            background: linear-gradient(135deg, #00f5ff, #ff00e4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            width: 40px;
+        }
+
+        .contact-item span {
+            font-size: 1.05rem;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            padding: 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 992px) {
+            #home {
+                flex-direction: column;
+                text-align: center;
+                padding: 80px 5%;
+            }
+            .home-content h1 {
+                font-size: 3.5rem;
+            }
+            .home-content p {
+                margin: 0 auto 30px;
+            }
+            .home-buttons {
+                justify-content: center;
+            }
+            .image-wrapper {
+                width: 300px;
+                height: 300px;
+            }
+            .about-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            .section-title::after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+            .section-title {
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .home-content h1 {
+                font-size: 2.5rem;
+            }
+            .typing-text {
+                font-size: 1.2rem;
+            }
+            .image-wrapper {
+                width: 220px;
+                height: 220px;
+            }
+            .about-stats {
+                grid-template-columns: 1fr 1fr;
+            }
+            .float-icons i {
+                font-size: 1.2rem;
+                padding: 10px;
+            }
+            .cursor-dot,
+            .cursor-ring {
+                display: none;
+            }
+            body {
+                cursor: auto;
+            }
+            section {
+                padding: 60px 5%;
+            }
+            .section-title {
+                font-size: 2.2rem;
+            }
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== CUSTOM CURSOR ===== -->
+    <div class="cursor-dot" id="cursorDot"></div>
+    <div class="cursor-ring" id="cursorRing"></div>
+
+    <!-- ===== PARTICLES BG ===== -->
+    <div id="particles-js"></div>
+
+    <!-- ===== HOME SECTION ===== -->
+    <section id="home">
+        <!-- LEFT CONTENT -->
+        <div class="home-content">
+            <div class="badge">✦ WELCOME TO MY WORLD</div>
+            <h1>I'm <span>Kamalesh R</span></h1>
+            <div class="typing-text">
+                <span id="typed"></span>
+            </div>
+            <p>
+                Web Developer · Filmmaker · Digital Marketer · Youtuber<br/>
+                Blending <strong style="color:#00f5ff;">technology</strong> with 
+                <strong style="color:#ff00e4;">creativity</strong> to build 
+                extraordinary digital experiences.
+            </p>
+            <div class="home-buttons">
+                <a href="#projects" class="btn btn-primary">View My Work</a>
+                <a href="#contact" class="btn">Let's Talk</a>
+            </div>
+        </div>
+
+        <!-- RIGHT: IMAGE WITH BORDER ROTATION ONLY -->
+        <div class="home-image">
+            <div class="image-wrapper" id="imageWrapper">
+                <div class="image-inner">
+                    <img src="kamalesh.jpeg" alt="Kamalesh R" id="profileImage" />
+                </div>
+            </div>
+
+            <!-- <div class="float-icons">
+                <i class="fab fa-html5" style="color:#e34f26;"></i>
+                <i class="fab fa-css3-alt" style="color:#264de4;"></i>
+                <i class="fab fa-js" style="color:#f7df1e;"></i>
+                <i class="fas fa-video" style="color:#ff6b6b;"></i>
+                <i class="fab fa-youtube" style="color:#ff0000;"></i>
+                <i class="fas fa-bullhorn" style="color:#4ecdc4;"></i>
+            </div> -->
+        </div>
+    </section>
+
+    <!-- ===== ABOUT ===== -->
+    <section id="about">
+        <h2 class="section-title">About Me</h2>
+        <div class="about-grid">
+            <div class="about-text">
+                <p>
+                    👋 Hey! I'm <span class="highlight">Kamalesh R</span>, a passionate 
+                    <span class="highlight">Web Developer</span> with 
+                    <strong>HTML (70%)</strong>, <strong>CSS (20%)</strong>, and 
+                    <strong>JavaScript (40%)</strong> skills. I love crafting 
+                    interactive and visually stunning websites.
+                </p>
+                <p>
+                    🎬 Beyond code, I'm a <span class="highlight">creative storyteller</span> — 
+                    I've directed <strong>2 short films</strong>, handled 
+                    <strong>digital marketing</strong> campaigns, and run my own 
+                    <strong>YouTube channel</strong>. I believe in blending 
+                    technology with art to create unforgettable experiences.
+                </p>
+                <p>
+                    💡 Always exploring new tools, frameworks, and cinematic techniques.
+                </p>
+            </div>
+            <div class="about-stats">
+                <div class="stat-card" data-tilt>
+                    <h3>2</h3>
+                    <p>Short Films</p>
+                </div>
+                <div class="stat-card" data-tilt>
+                    <h3>1</h3>
+                    <p>YouTube Channel</p>
+                </div>
+                <div class="stat-card" data-tilt>
+                    <h3>5+</h3>
+                    <p>Projects</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== SKILLS ===== -->
+    <section id="skills">
+        <h2 class="section-title">My Skills</h2>
+        <div class="skills-container">
+            <div class="skill-item" data-tilt>
+                <i class="fab fa-html5"></i>
+                <h4>HTML</h4>
+                <div class="skill-bar"><div class="fill" data-width="70"></div></div>
+            </div>
+            <div class="skill-item" data-tilt>
+                <i class="fab fa-css3-alt"></i>
+                <h4>CSS</h4>
+                <div class="skill-bar"><div class="fill" data-width="20"></div></div>
+            </div>
+            <div class="skill-item" data-tilt>
+                <i class="fab fa-js"></i>
+                <h4>JavaScript</h4>
+                <div class="skill-bar"><div class="fill" data-width="40"></div></div>
+            </div>
+            <div class="skill-item" data-tilt>
+                <i class="fas fa-video"></i>
+                <h4>Filmmaking</h4>
+                <div class="skill-bar"><div class="fill" data-width="80"></div></div>
+            </div>
+            <div class="skill-item" data-tilt>
+                <i class="fas fa-bullhorn"></i>
+                <h4>Digital Marketing</h4>
+                <div class="skill-bar"><div class="fill" data-width="75"></div></div>
+            </div>
+            <div class="skill-item" data-tilt>
+                <i class="fab fa-youtube"></i>
+                <h4>YouTube</h4>
+                <div class="skill-bar"><div class="fill" data-width="85"></div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== PROJECTS ===== -->
+    <section id="projects">
+        <h2 class="section-title">My Projects</h2>
+        <div class="projects-grid">
+            <div class="project-card" data-tilt>
+                <h3>🎬 Short Film 1</h3>
+                <p>A cinematic short film exploring emotions and visuals.</p>
+                <span class="tag">Filmmaking</span>
+            </div>
+            <div class="project-card" data-tilt>
+                <h3>🎥 Short Film 2</h3>
+                <p>Another storytelling masterpiece with creative shots.</p>
+                <span class="tag">Cinematography</span>
+            </div>
+            <div class="project-card" data-tilt>
+                <h3>📱 Digital Marketing</h3>
+                <p>Successful campaigns across social media platforms.</p>
+                <span class="tag">Marketing</span>
+            </div>
+            <div class="project-card" data-tilt>
+                <h3>▶️ YouTube Channel</h3>
+                <p>Content creation, editing, and audience growth.</p>
+                <span class="tag">Content Creation</span>
+            </div>
+            <div class="project-card" data-tilt>
+                <h3>🌐 Portfolio Website</h3>
+                <p>This very website — built with love and 3D effects.</p>
+                <span class="tag">Web Dev</span>
+            </div>
+            <div class="project-card" data-tilt>
+                <h3>⚡ Interactive UI</h3>
+                <p>Experimental UI with mouse tracking & animations.</p>
+                <span class="tag">Frontend</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== CONTACT ===== -->
+    <section id="contact">
+        <h2 class="section-title">Get in Touch</h2>
+        <div class="contact-grid">
+            <a href="tel:+919789156928" class="contact-item" data-tilt>
+                <i class="fas fa-phone"></i>
+                <span>+91 97891 56928</span>
+            </a>
+            <a href="mailto:kamaleshr202007@gmail.com" class="contact-item" data-tilt>
+                <i class="fas fa-envelope"></i>
+                <span>kamaleshr202007@gmail.com</span>
+            </a>
+            <a href="#" class="contact-item" data-tilt>
+                <i class="fab fa-instagram"></i>
+                <span>Instagram</span>
+            </a>
+            <a href="#" class="contact-item" data-tilt>
+                <i class="fab fa-youtube"></i>
+                <span>YouTube</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer>
+        &copy; 2026 Kamalesh R | Built with ❤️ &amp; 3D Magic
+    </footer>
+
+    <!-- ===== SCRIPTS ===== -->
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+
+    <script>
+        // ===== CUSTOM CURSOR =====
+        const dot = document.getElementById('cursorDot');
+        const ring = document.getElementById('cursorRing');
+
+        document.addEventListener('mousemove', (e) => {
+            dot.style.left = e.clientX + 'px';
+            dot.style.top = e.clientY + 'px';
+            ring.style.left = e.clientX + 'px';
+            ring.style.top = e.clientY + 'px';
+        });
+
+        // ===== TYPED.JS =====
+        new Typed('#typed', {
+            strings: [
+                'Web Developer 🚀',
+                'Filmmaker 🎬',
+                'Digital Marketer 📈',
+                'Youtuber ▶️',
+                'Creative Thinker 💡'
+            ],
+            typeSpeed: 80,
+            backSpeed: 50,
+            loop: true,
+        });
+
+        // ===== PARTICLES.JS =====
+        particlesJS('particles-js', {
+            particles: {
+                number: { value: 80, density: { enable: true, value_area: 800 } },
+                color: { value: '#00f5ff' },
+                shape: { type: 'circle' },
+                opacity: { value: 0.5, random: true },
+                size: { value: 3, random: true },
+                line_linked: {
+                    enable: true,
+                    distance: 150,
+                    color: '#ff00e4',
+                    opacity: 0.2,
+                    width: 1
+                },
+                move: {
+                    enable: true,
+                    speed: 2,
+                    direction: 'none',
+                    random: true,
+                    straight: false,
+                    out_mode: 'out'
+                }
+            },
+            interactivity: {
+                detect_on: 'canvas',
+                events: {
+                    onhover: { enable: true, mode: 'repulse' },
+                    onclick: { enable: true, mode: 'push' }
+                }
+            },
+            retina_detect: true
+        });
+
+        // ===== SKILL BARS =====
+        const skillFills = document.querySelectorAll('.fill');
+
+        function animateBars() {
+            skillFills.forEach(fill => {
+                const rect = fill.getBoundingClientRect();
+                if (rect.top < window.innerHeight - 100) {
+                    const width = fill.getAttribute('data-width');
+                    fill.style.width = width + '%';
+                }
+            });
+        }
+
+        window.addEventListener('scroll', animateBars);
+        window.addEventListener('load', animateBars);
+
+        // ===== 3D TILT ON IMAGE WRAPPER (Image won't rotate) =====
+        const wrapper = document.getElementById('imageWrapper');
+        const img = document.getElementById('profileImage');
+
+        wrapper.addEventListener('mousemove', (e) => {
+            const rect = wrapper.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            const rotateX = (y - centerY) / 15;
+            const rotateY = (centerX - x) / 15;
+
+            wrapper.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+            img.style.transform = 'rotate(0deg) scale(1)';
+        });
+
+        wrapper.addEventListener('mouseleave', () => {
+            wrapper.style.transform = 'perspective(800px) rotateX(0deg) rotateY(0deg)';
+            img.style.transform = 'rotate(0deg) scale(1)';
+        });
+
+        // ===== IMAGE GLOW ON HOVER =====
+        wrapper.addEventListener('mouseenter', () => {
+            img.style.filter = 'brightness(1.15) contrast(1.1) drop-shadow(0 0 60px rgba(0, 245, 255, 0.7))';
+        });
+
+        wrapper.addEventListener('mouseleave', () => {
+            img.style.filter = 'brightness(1.05) contrast(1.05) drop-shadow(0 0 0px rgba(0, 245, 255, 0))';
+        });
+
+        // =============================================
+        // ===== 3D TILT EFFECT FOR ALL CARDS =====
+        // =============================================
+        document.querySelectorAll('[data-tilt]').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                const rotateX = ((y - centerY) / 20);
+                const rotateY = ((centerX - x) / 20);
+                card.style.transform =
+                    `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
+            });
+
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'perspective(800px) rotateX(0deg) rotateY(0deg) scale(1)';
+            });
+        });
+
+        console.log('🚀 Portfolio with 3D Cards loaded!');
+        console.log('📞 Contact: 9789156928');
+        console.log('📧 Email: kamaleshr202007@gmail.com');
+    </script>
+
+</body>
+</html>
